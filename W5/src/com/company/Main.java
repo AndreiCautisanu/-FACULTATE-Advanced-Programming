@@ -1,10 +1,13 @@
 package com.company;
 
+import java.io.IOException;
+
 public class Main {
 
     public static void main(String[] args) {
         Main app = new Main();
-        app.cr
+        app.testCreateSave();
+        app.testLoadView();
     }
 
     private void testCreateSave() {
@@ -13,6 +16,17 @@ public class Main {
         doc.addTag("type", "Slides");
         catalog.add(doc);
 
-        CatalogUtil.save(catalog);
+        try {
+            CatalogUtil.save(catalog);
+        }
+        catch(IOException e) {
+            System.out.println("problema");
+        }
+    }
+
+    private void testLoadView() {
+        Catalog catalog = CatalogUtil.load("d:/java/catalog.ser");
+        Document doc = catalog.findByID("java1");
+        CatalogUtil.view(doc.getLocation());
     }
 }
