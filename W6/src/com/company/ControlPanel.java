@@ -34,14 +34,18 @@ public class ControlPanel extends JPanel {
     }
 
     private void exit(ActionEvent e) {
+        frame.dispose();
     }
 
     private void reset(ActionEvent e) {
+        frame.canvas.createOffScreenImage();
+        frame.canvas.repaint();
     }
 
     private void load(ActionEvent e) {
         try {
             frame.canvas.image = ImageIO.read(new File("d:/test.png"));
+            frame.repaint();
         }
         catch (IOException ex) {
             System.err.println(ex);

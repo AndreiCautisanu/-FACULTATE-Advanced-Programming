@@ -20,7 +20,7 @@ public class DrawingPanel extends JPanel {
         init();
     }
 
-    private void createOffScreenImage() {
+    void createOffScreenImage() {
         image = new BufferedImage(W, H, BufferedImage.TYPE_INT_ARGB);
         graphics = image.createGraphics();
         graphics.setColor(Color.WHITE);
@@ -34,7 +34,7 @@ public class DrawingPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 drawShape(e.getX(), e.getY());
-                repaint();
+                //repaint();
             }
         });
     }
@@ -49,9 +49,11 @@ public class DrawingPanel extends JPanel {
         int blue = rnd.nextInt(255);
         int alpha = rnd.nextInt(128) + 128;
 
-        Color color = new Color(red, green, blue, alpha);
+        if (frame.configPanel.colorCombo.getSelectedIndex() == 0)
+            graphics.setColor(new Color(red, green, blue));
+        else if (frame.configPanel.colorCombo.getSelectedIndex() == 1)
+            graphics.setColor(new Color(0, 0, 0));
 
-        graphics.setColor(color);
         graphics.fill(new RegularPolygon(x, y, radius, sides));
     }
 

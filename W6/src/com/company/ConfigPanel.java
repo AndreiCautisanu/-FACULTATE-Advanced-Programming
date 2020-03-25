@@ -23,6 +23,7 @@ public class ConfigPanel extends JPanel {
         colorCombo = new JComboBox(colors);
         colorCombo.setSelectedIndex(0);
 
+
         add(sidesLabel);
         add(sidesField);
         add(colorCombo);
