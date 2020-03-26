@@ -53,7 +53,8 @@ public class ControlPanel extends JPanel {
             File selected = fc.getSelectedFile();
             try {
                 frame.canvas.image = ImageIO.read(selected);
-                frame.repaint();
+                frame.canvas.graphics = frame.canvas.image.createGraphics();
+                frame.canvas.repaint();
             } catch (IOException ex) {
                 System.err.println(ex);
             }
