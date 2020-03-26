@@ -2,6 +2,7 @@ package com.company;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.File;
@@ -43,21 +44,33 @@ public class ControlPanel extends JPanel {
     }
 
     private void load(ActionEvent e) {
-        try {
-            frame.canvas.image = ImageIO.read(new File("d:/test.png"));
-            frame.repaint();
-        }
-        catch (IOException ex) {
-            System.err.println(ex);
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Select an image");
+        FileNameExtensionFilter filterImageFiles = new FileNameExtensionFilter("Image files (png, jpg, etc.)", "jpg", "jpeg", "png");
+        fc.addChoosableFileFilter(filterImageFiles);
+
+        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selected = fc.getSelectedFile();
+            try {
+                frame.canvas.image = ImageIO.read(selected);
+                frame.repaint();
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
         }
     }
 
     private void save(ActionEvent e) {
-        try {
-            ImageIO.write(frame.canvas.image, "PNG", new File("d:/test.png"));
-        }
-        catch (IOException ex) {
-            System.err.println(ex);
+        JFileChooser fc = new JFileChooser();
+        fc.setDialogTitle("Save your image");
+
+        if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+            File selected = fc.getSelectedFile();
+            try {
+                ImageIO.write(frame.canvas.image, "PNG", selected);
+            } catch (IOException ex) {
+                System.err.println(ex);
+            }
         }
     }
 

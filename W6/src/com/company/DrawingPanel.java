@@ -34,6 +34,9 @@ public class DrawingPanel extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 drawShape(e.getX(), e.getY());
+                repaint();
+                System.out.println(e.getX());
+                System.out.println(e.getY());
                 //repaint();
             }
         });
@@ -41,7 +44,7 @@ public class DrawingPanel extends JPanel {
 
     private void drawShape(int x, int y) {
         Random rnd = new Random();
-        int radius = rnd.nextInt(151) + 100;
+        int radius = rnd.nextInt(200);
         int sides = (Integer)frame.configPanel.sidesField.getValue();
 
         int red = rnd.nextInt(255);
@@ -50,11 +53,12 @@ public class DrawingPanel extends JPanel {
         int alpha = rnd.nextInt(128) + 128;
 
         if (frame.configPanel.colorCombo.getSelectedIndex() == 0)
-            graphics.setColor(new Color(red, green, blue));
+            graphics.setColor(new Color(red, green, blue, alpha));
         else if (frame.configPanel.colorCombo.getSelectedIndex() == 1)
             graphics.setColor(new Color(0, 0, 0));
 
-        graphics.fill(new RegularPolygon(x, y, radius, sides));
+        graphics.fillPolygon(new RegularPolygon(x, y, radius, sides));
+
     }
 
     @Override
